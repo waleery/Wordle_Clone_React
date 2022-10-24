@@ -5,12 +5,15 @@ export default function Wordle({ solution }) {
     const { currentGuess, handleKeyup } = useWordle(solution);
 
     useEffect(() => {
-        window.addEventListener('keyup', handleKeyup)
+        window.addEventListener("keyup", handleKeyup);
 
-        return () => window.removeEventListener('keyup', handleKeyup)
-    }, [handleKeyup])
+        return () => window.removeEventListener("keyup", handleKeyup);
+    }, [handleKeyup]);
 
     return (
-    <div>current guess - {currentGuess}</div>
-    )
+        <div>
+            <div>Solution - {solution}</div>
+            Current guess - {currentGuess}
+        </div>
+    );
 }
