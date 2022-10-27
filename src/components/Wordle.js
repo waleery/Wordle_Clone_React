@@ -9,6 +9,7 @@ export default function Wordle({ solution }) {
         window.addEventListener("keyup", handleKeyup);
 
         return () => window.removeEventListener("keyup", handleKeyup);
+        
     }, [handleKeyup]);
 
     useEffect(() => {
