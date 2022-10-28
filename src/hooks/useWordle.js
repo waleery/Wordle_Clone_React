@@ -6,6 +6,7 @@ const useWordle = (solution) => {
     const [guesses, setGuesses] = useState([...Array(6)]); //each guess is array
     const [history, setHistory] = useState(["hello", "ninja"]); //each guess is a string
     const [isCorrect, setIsCorrect] = useState(false);
+    const [usedKeys, setUsedKeys] = useState({}); // {a: 'green', b: 'yellow', c: 'grey'}
 
     //format a gess into an array of letter objects
     //eg [{key: 'a' , color: 'yellow'}]
@@ -60,13 +61,38 @@ const useWordle = (solution) => {
             return prevTurn +1
         })
 
+        setUsedKeys((prevUsedKeys) => {
+            let newKeys = {...prevUsedKeys}
+
+            formattedGuess.forEach((letter) => {
+
+                //check if letter have already a color
+                const currentColor = newKeys[letter.key]
+
+                if(letter.color === 'green'){
+                    newKeys[letter.key] = 'green'
+                    return
+                }
+
+                if(letter.color === 'yellow' && currentColor !== 'green'){
+                    newKeys[letter.key] = 'yellow'
+                    return
+                }
+                if(letter.color === 'grey' && currentColor !== 'green' && currentColor !== 'yellow'){
+                    newKeys[letter.key] = 'grey'
+                    return
+                }
+            })
+
+            return newKeys
+        })
         setCurrentGuess('')
     };
 
     //handle keyup event and track current guess
     //if user presses enter, add the new guess
     const handleKeyup = ({ key }) => {
-        console.log(key);
+        //console.log(key);
 
         if (key === "Enter") {
             //only add guess if turn is less than 5
@@ -105,7 +131,7 @@ const useWordle = (solution) => {
         }
     };
 
-    return { turn, currentGuess, guesses, isCorrect, handleKeyup };
+    return { turn, currentGuess, guesses, isCorrect, usedKeys, handleKeyup};
 };
 
 export default useWordle;
