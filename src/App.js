@@ -4,7 +4,7 @@ import Wordle from "./components/Wordle";
 function App() {
     const [solution, setSolution] = useState(null);
 
-    useEffect(() => {
+    const getSolution = () => {
         fetch("http://localhost:3001/solutions")
             .then((res) => res.json())
             .then((json) => {
@@ -14,14 +14,18 @@ function App() {
                     json[Math.floor(Math.random() * json.length)];
                 setSolution(randomSolution.word);
             });
-    }, [setSolution]);
+    }
+
+    useEffect(() => {
+        getSolution()
+    }, []);
 
     console.log(solution);
 
     return (
         <div className="App">
-            <h1> Wordle</h1>
-            {solution && <Wordle solution={solution}/>}
+            <h1>Wordle</h1>
+            {solution && <Wordle solution={solution} getSolution={getSolution}/>}
         </div>
     );
 }

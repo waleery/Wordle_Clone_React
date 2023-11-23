@@ -8,6 +8,15 @@ const useWordle = (solution) => {
     const [isCorrect, setIsCorrect] = useState(false);
     const [usedKeys, setUsedKeys] = useState({}); // {a: 'green', b: 'yellow', c: 'grey'}
 
+    const resetData = () => {
+        setTurn(0)
+        setCurrentGuess("")
+        setGuesses([...Array(6)])
+        setHistory([])
+        setIsCorrect(false)
+        setUsedKeys({})
+    }
+
     //format a gess into an array of letter objects
     //eg [{key: 'a' , color: 'yellow'}]
     const formatGuess = () => {
@@ -131,7 +140,7 @@ const useWordle = (solution) => {
         }
     };
 
-    return { turn, currentGuess, guesses, isCorrect, usedKeys, handleKeyup};
+    return { turn, currentGuess, guesses, isCorrect, usedKeys, handleKeyup, resetData};
 };
 
 export default useWordle;
