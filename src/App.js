@@ -4,6 +4,7 @@ import Wordle from "./components/Wordle";
 function App() {
     const [solution, setSolution] = useState(null);
 
+    // to run the server -> json-server ./data/db.json --port 3001
     const getSolution = () => {
         fetch("http://localhost:3001/solutions")
             .then((res) => res.json())
@@ -19,8 +20,6 @@ function App() {
     useEffect(() => {
         getSolution()
     }, []);
-
-    console.log(solution);
 
     return (
         <div className="App">

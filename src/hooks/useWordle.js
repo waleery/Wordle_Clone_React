@@ -4,7 +4,7 @@ const useWordle = (solution) => {
     const [turn, setTurn] = useState(0);
     const [currentGuess, setCurrentGuess] = useState("");
     const [guesses, setGuesses] = useState([...Array(6)]); //each guess is array
-    const [history, setHistory] = useState(["hello", "ninja"]); //each guess is a string
+    const [history, setHistory] = useState([]) //each guess is a string
     const [isCorrect, setIsCorrect] = useState(false);
     const [usedKeys, setUsedKeys] = useState({}); // {a: 'green', b: 'yellow', c: 'grey'}
 
@@ -111,12 +111,12 @@ const useWordle = (solution) => {
             }
             //do not allow duplicate words
             if (history.includes(currentGuess)) {
-                console.log("You already tried that word.");
+                window.alert("You already tried that word.");
                 return;
             }
             //check word is 5 chars long
             if (currentGuess.length !== 5) {
-                console.log("word must be 5 chars long");
+                window.alert("Word must be 5 chars long!");
                 return;
             }
             const formatted = formatGuess();
